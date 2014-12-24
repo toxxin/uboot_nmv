@@ -1,0 +1,12 @@
+if TARGET_NMV
+
+config SYS_BOARD
+	default "nmv"
+
+config SYS_VENDOR
+	default "elins"
+
+config SYS_CONFIG_NAME
+	default "nmv"
+
+endif

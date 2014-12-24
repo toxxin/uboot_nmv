@@ -1,0 +1,6 @@
+NMV BOARD
+M:	Anton Glukhov <toxxinus@gmail.com>
+S:	Maintained
+F:	board/elins/nmv/
+F:	include/configs/nmv.h
+F:	configs/nmv_defconfig
