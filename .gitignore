@@ -1,0 +1,17 @@
+include/config/
+include/generated/
+*.o
+*.o.*
+*.cmd
+*.bin
+*.elf
+*.img
+*.lds
+*.map
+*.srec
+
+MLO
+u-boot
+spl
+tpl
+*.swp
