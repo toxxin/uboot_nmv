@@ -128,7 +128,7 @@
 #define CONFIG_CMD_FAT		/* FAT support			*/
 #define CONFIG_CMD_JFFS2	/* JFFS2 Support		*/
 
-#undef CONFIG_CMD_I2C		/* I2C serial bus support	*/
+#define CONFIG_CMD_I2C		/* I2C serial bus support	*/
 #undef CONFIG_CMD_MMC		/* MMC support			*/
 #undef CONFIG_CMD_NET
 #undef CONFIG_CMD_DHCP
@@ -142,7 +142,9 @@
 #define CONFIG_SYS_NO_FLASH
 #define CONFIG_SYS_I2C
 #define CONFIG_SYS_OMAP24_I2C_SPEED	100000
-#define CONFIG_SYS_OMAP24_I2C_SLAVE	1
+#define CONFIG_SYS_OMAP24_I2C_SLAVE	0
+#define CONFIG_SYS_I2C_BUS      2
+#define CONFIG_SYS_I2C_BUS_SELECT   0
 #define CONFIG_SYS_I2C_OMAP34XX
 
 
@@ -178,8 +180,6 @@
         "ip=192.168.0.100:192.168.0.79:192.168.0.1:255.255.0.0:arm:eth0:off " \
         "mem=256M \0" \
     "tboot=echo Own booting using tftp...; " \
-        "i2c mw 0x2d 0x33 0x0d; " \
-        "i2c mw 0x2d 0x34 0x0d; " \
         "run tftpargs; " \
         "tftpboot; " \
         "bootm ${loadaddr}\0" \
@@ -187,6 +187,9 @@
         "mw 0x48050040 0; " \
         "mw 0x48004E00 0; " \
         "mw 0x480022D8 0\0" \
+    "mmcoff=echo EMMC off...; " \
+        "i2c dev 2; " \
+        "i2c mw 0x2d 0x35 0x0c\0" \
 
 #define CONFIG_BOOTCOMMAND \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
