@@ -1,11 +1,11 @@
 /*
- * am3517_evm.h - Default configuration for AM3517 EVM board.
+ * nmv.h - Default configuration for NMV board.
  *
- * Author: Vaibhav Hiremath <hvaibhav@ti.com>
+ * Author: Anton Glukhov <toxxinus@gmail.com>
  *
  * Based on omap3_evm_config.h
  *
- * Copyright (C) 2010 Texas Instruments Incorporated
+ * Copyright (C) 2012 STC Elins
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
@@ -83,20 +83,20 @@
 #define CONFIG_BAUDRATE			115200
 #define CONFIG_SYS_BAUDRATE_TABLE	{4800, 9600, 19200, 38400, 57600,\
 					115200}
-///#define CONFIG_MMC			1
-///#define CONFIG_GENERIC_MMC		1
-///#define CONFIG_OMAP_HSMMC		1
-///#define CONFIG_DOS_PARTITION		1
+#define CONFIG_MMC			1
+#define CONFIG_GENERIC_MMC		1
+#define CONFIG_OMAP_HSMMC		1
+#define CONFIG_DOS_PARTITION		1
 
 /*
  * USB configuration
  * Enable CONFIG_MUSB_HOST for Host functionalities MSC, keyboard
  * Enable CONFIG_MUSB_GADGET for Device functionalities.
  */
-///#define CONFIG_USB_MUSB_AM35X
-///#define CONFIG_MUSB_HOST
-///#define CONFIG_MUSB_PIO_ONLY
-
+/*#define CONFIG_USB_MUSB_AM35X
+#define CONFIG_MUSB_HOST
+#define CONFIG_MUSB_PIO_ONLY
+*/
 #ifdef CONFIG_USB_MUSB_AM35X
 
 #ifdef CONFIG_MUSB_HOST
@@ -128,11 +128,11 @@
 #define CONFIG_CMD_FAT		/* FAT support			*/
 #define CONFIG_CMD_JFFS2	/* JFFS2 Support		*/
 
-#define CONFIG_CMD_I2C		/* I2C serial bus support	*/
-#define CONFIG_CMD_MMC		/* MMC support			*/
-#define CONFIG_CMD_NAND		/* NAND support			*/
-#define CONFIG_CMD_DHCP
-#define CONFIG_CMD_PING
+#undef CONFIG_CMD_I2C		/* I2C serial bus support	*/
+#undef CONFIG_CMD_MMC		/* MMC support			*/
+#undef CONFIG_CMD_NET
+#undef CONFIG_CMD_DHCP
+#undef CONFIG_CMD_PING
 
 #undef CONFIG_CMD_FLASH		/* flinfo, erase, protect	*/
 #undef CONFIG_CMD_FPGA		/* FPGA configuration Support	*/
@@ -145,23 +145,6 @@
 #define CONFIG_SYS_OMAP24_I2C_SLAVE	1
 #define CONFIG_SYS_I2C_OMAP34XX
 
-/*
- * Board NAND Info.
- */
-#define CONFIG_SYS_NAND_ADDR		NAND_BASE	/* physical address */
-							/* to access nand */
-#define CONFIG_SYS_NAND_BASE		NAND_BASE	/* physical address */
-							/* to access */
-							/* nand at CS0 */
-
-#define CONFIG_SYS_MAX_NAND_DEVICE	1		/* Max number of */
-							/* NAND devices */
-#define CONFIG_JFFS2_NAND
-/* nand device jffs2 lives on */
-#define CONFIG_JFFS2_DEV		"nand0"
-/* start of jffs2 partition */
-#define CONFIG_JFFS2_PART_OFFSET	0x680000
-#define CONFIG_JFFS2_PART_SIZE		0xf980000	/* sz of jffs2 part */
 
 /* Environment information */
 #define CONFIG_BOOTDELAY	10
@@ -200,6 +183,10 @@
         "run tftpargs; " \
         "tftpboot; " \
         "bootm ${loadaddr}\0" \
+    "dssoff=echo Turn all DSS off...; " \
+        "mw 0x48050040 0; " \
+        "mw 0x48004E00 0; " \
+        "mw 0x480022D8 0\0" \
 
 #define CONFIG_BOOTCOMMAND \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
@@ -263,20 +250,10 @@
 #define CONFIG_SYS_MAX_FLASH_BANKS	2	/* max number of flash banks */
 #define CONFIG_SYS_MONITOR_LEN		(256 << 10)	/* Reserve 2 sectors */
 
-#if defined(CONFIG_CMD_NAND)
-#define CONFIG_SYS_FLASH_BASE		NAND_BASE
-#endif
-
 /* Monitor at start of flash */
 #define CONFIG_SYS_MONITOR_BASE		CONFIG_SYS_FLASH_BASE
 
-#define CONFIG_NAND_OMAP_GPMC
-#define CONFIG_ENV_IS_IN_NAND		1
-#define SMNAND_ENV_OFFSET		0x260000 /* environment starts here */
-
-#define CONFIG_SYS_ENV_SECT_SIZE	(128 << 10)	/* 128 KiB */
-#define CONFIG_ENV_OFFSET		SMNAND_ENV_OFFSET
-#define CONFIG_ENV_ADDR			SMNAND_ENV_OFFSET
+#define CONFIG_ENV_IS_NOWHERE		1
 
 /*-----------------------------------------------------------------------
  * CFI FLASH driver setup
@@ -303,7 +280,6 @@
 /* Defines for SPL */
 #define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_BOARD_INIT
-#define CONFIG_SPL_NAND_SIMPLE
 #define CONFIG_SPL_TEXT_BASE		0x40200800
 #define CONFIG_SPL_MAX_SIZE		(54 * 1024)	/* 8 KB for stack */
 #define CONFIG_SPL_STACK		LOW_LEVEL_SRAM_STACK
@@ -323,27 +299,8 @@
 #define CONFIG_SPL_MMC_SUPPORT
 #define CONFIG_SPL_FAT_SUPPORT
 #define CONFIG_SPL_SERIAL_SUPPORT
-#define CONFIG_SPL_NAND_SUPPORT
-#define CONFIG_SPL_NAND_BASE
-#define CONFIG_SPL_NAND_DRIVERS
-#define CONFIG_SPL_NAND_ECC
 #define CONFIG_SPL_POWER_SUPPORT
 #define CONFIG_SPL_LDSCRIPT		"$(CPUDIR)/omap-common/u-boot-spl.lds"
-
-/* NAND boot config */
-#define CONFIG_SYS_NAND_5_ADDR_CYCLE
-#define CONFIG_SYS_NAND_PAGE_COUNT	64
-#define CONFIG_SYS_NAND_PAGE_SIZE	2048
-#define CONFIG_SYS_NAND_OOBSIZE		64
-#define CONFIG_SYS_NAND_BLOCK_SIZE	(128*1024)
-#define CONFIG_SYS_NAND_BAD_BLOCK_POS	NAND_LARGE_BADBLOCK_POS
-#define CONFIG_SYS_NAND_ECCPOS		{2, 3, 4, 5, 6, 7, 8, 9,\
-						10, 11, 12, 13}
-#define CONFIG_SYS_NAND_ECCSIZE		512
-#define CONFIG_SYS_NAND_ECCBYTES	3
-#define CONFIG_NAND_OMAP_ECCSCHEME	OMAP_ECC_HAM1_CODE_HW
-#define CONFIG_SYS_NAND_U_BOOT_START	CONFIG_SYS_TEXT_BASE
-#define CONFIG_SYS_NAND_U_BOOT_OFFS	0x80000
 
 /*
  * 1MB into the SDRAM to allow for SPL's bss at the beginning of SDRAM
