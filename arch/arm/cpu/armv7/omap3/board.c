@@ -56,7 +56,7 @@ const struct gpio_bank *const omap_gpio_bank = gpio_bank_34xx;
 * We would not typically need to save these parameters in regular
 * U-Boot. This is needed only in SPL at the moment.
 */
-u32 omap3_boot_device = BOOT_DEVICE_NAND;
+u32 omap3_boot_device = BOOT_DEVICE_NONE;
 
 /* auto boot mode detection is not possible for OMAP3 - hard code */
 u32 spl_boot_mode(void)
