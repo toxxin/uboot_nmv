@@ -159,7 +159,9 @@
 	"mmcdev=0\0" \
     "ip=192.168.0.100\0" \
     "i7ip=192.168.0.77\0" \
-    "serverip=192.168.0.79\0" \
+    "servip=192.168.0.79\0" \
+    "i7nfspath=/nfs\0" \
+    "servnfspath=/home/toxxin/nfs\0" \
 	"mmcargs=setenv bootargs console=${console} " \
 		"root=/dev/mmcblk0p2 rw rootwait\0" \
 	"nandargs=setenv bootargs console=${console} " \
@@ -179,16 +181,17 @@
     "tftpargs=setenv bootargs " \
         "console=${console} " \
         "root=/dev/nfs rw " \
-        "nfsroot=${serverip}:/home/toxxin/nfs " \
-        "ip=${ip}:${serverip}:192.168.0.1:255.255.0.0:arm:eth0:off " \
+        "nfsroot=${serverip}:${nfspath} " \
+        "ip=${ipaddr}:${serverip}:192.168.0.1:255.255.0.0:arm:eth0:off " \
         "mem=256M \0" \
-    "tftpargsi7=setenv bootargs " \
-        "console=${console} " \
-        "root=/dev/nfs rw " \
-        "nfsroot=192.168.0.77:/home/toxxin/nfs " \
-        "ip=192.168.0.100:192.168.0.79:192.168.0.1:255.255.0.0:arm:eth0:off " \
-        "mem=256M \0" \
+    "setenvi7=setenv serverip ${i7ip}; " \
+        "setenv nfspath ${i7nfspath}; " \
+        "setenv ipaddr ${ip} \0" \
+    "setenvserver=setenv serverip ${servip}; " \
+        "setenv nfspath ${servnfspath}; " \
+        "setenv ipaddr ${ip} \0" \
     "tboot=echo Own booting using tftp...; " \
+        "run setenvi7; " \
         "run tftpargs; " \
         "tftpboot; " \
         "bootm ${loadaddr}\0" \
@@ -339,9 +342,7 @@
 #define CONFIG_NET_MULTI
 
 /* Network configuration */
-#define CONFIG_IPADDR           192.168.0.100
 #define CONFIG_NETMASK          255.255.0.0
-#define CONFIG_SERVERIP         192.168.0.77
 #define CONFIG_ETHADDR          02:80:ad:20:31:b8
 #endif
 
