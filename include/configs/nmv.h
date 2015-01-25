@@ -130,9 +130,9 @@
 
 #define CONFIG_CMD_I2C		/* I2C serial bus support	*/
 #undef CONFIG_CMD_MMC		/* MMC support			*/
-#undef CONFIG_CMD_NET
-#undef CONFIG_CMD_DHCP
-#undef CONFIG_CMD_PING
+#define CONFIG_CMD_NET
+#define CONFIG_CMD_DHCP
+#define CONFIG_CMD_PING
 
 #undef CONFIG_CMD_FLASH		/* flinfo, erase, protect	*/
 #undef CONFIG_CMD_FPGA		/* FPGA configuration Support	*/
@@ -157,6 +157,9 @@
 	"loadaddr=0x82000000\0" \
 	"console=ttyO2,115200n8\0" \
 	"mmcdev=0\0" \
+    "ip=192.168.0.100\0" \
+    "i7ip=192.168.0.77\0" \
+    "serverip=192.168.0.79\0" \
 	"mmcargs=setenv bootargs console=${console} " \
 		"root=/dev/mmcblk0p2 rw rootwait\0" \
 	"nandargs=setenv bootargs console=${console} " \
@@ -174,6 +177,12 @@
 		"nand read ${loadaddr} 280000 400000; " \
 		"bootm ${loadaddr}\0" \
     "tftpargs=setenv bootargs " \
+        "console=${console} " \
+        "root=/dev/nfs rw " \
+        "nfsroot=${serverip}:/home/toxxin/nfs " \
+        "ip=${ip}:${serverip}:192.168.0.1:255.255.0.0:arm:eth0:off " \
+        "mem=256M \0" \
+    "tftpargsi7=setenv bootargs " \
         "console=${console} " \
         "root=/dev/nfs rw " \
         "nfsroot=192.168.0.77:/home/toxxin/nfs " \
@@ -290,17 +299,17 @@
 #define CONFIG_SPL_BSS_START_ADDR	0x80000000
 #define CONFIG_SPL_BSS_MAX_SIZE		0x80000		/* 512 KB */
 
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR	0x300 /* address 0x60000 */
-#define CONFIG_SYS_U_BOOT_MAX_SIZE_SECTORS	0x200 /* 256 KB */
-#define CONFIG_SYS_MMC_SD_FAT_BOOT_PARTITION	1
-#define CONFIG_SPL_FAT_LOAD_PAYLOAD_NAME	"u-boot.img"
+/*#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR	0x300*/ /* address 0x60000 */
+/*#define CONFIG_SYS_U_BOOT_MAX_SIZE_SECTORS	0x200*/ /* 256 KB */
+/*#define CONFIG_SYS_MMC_SD_FAT_BOOT_PARTITION	1
+#define CONFIG_SPL_FAT_LOAD_PAYLOAD_NAME	"u-boot.img"*/
 
 #define CONFIG_SPL_LIBCOMMON_SUPPORT
-#define CONFIG_SPL_LIBDISK_SUPPORT
-#define CONFIG_SPL_I2C_SUPPORT
+/*#define CONFIG_SPL_LIBDISK_SUPPORT*/
+/*#define CONFIG_SPL_I2C_SUPPORT*/
 #define CONFIG_SPL_LIBGENERIC_SUPPORT
-#define CONFIG_SPL_MMC_SUPPORT
-#define CONFIG_SPL_FAT_SUPPORT
+/*#define CONFIG_SPL_MMC_SUPPORT
+#define CONFIG_SPL_FAT_SUPPORT*/
 #define CONFIG_SPL_SERIAL_SUPPORT
 #define CONFIG_SPL_POWER_SUPPORT
 #define CONFIG_SPL_LDSCRIPT		"$(CPUDIR)/omap-common/u-boot-spl.lds"
