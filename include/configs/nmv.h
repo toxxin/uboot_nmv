@@ -158,9 +158,9 @@
 	"console=ttyO2,115200n8\0" \
 	"mmcdev=0\0" \
     "ip=192.168.0.100\0" \
-    "i7ip=192.168.0.77\0" \
+    "i7ip=192.168.0.78\0" \
     "servip=192.168.0.79\0" \
-    "i7nfspath=/nfs\0" \
+    "i7nfspath=/srv/nmv\0" \
     "servnfspath=/home/toxxin/nfs\0" \
 	"mmcargs=setenv bootargs console=${console} " \
 		"root=/dev/mmcblk0p2 rw rootwait\0" \
