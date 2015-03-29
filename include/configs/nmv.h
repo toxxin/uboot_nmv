@@ -129,7 +129,7 @@
 #define CONFIG_CMD_JFFS2	/* JFFS2 Support		*/
 
 #define CONFIG_CMD_I2C		/* I2C serial bus support	*/
-#undef CONFIG_CMD_MMC		/* MMC support			*/
+#define CONFIG_CMD_MMC		/* MMC support			*/
 #define CONFIG_CMD_NET
 #define CONFIG_CMD_DHCP
 #define CONFIG_CMD_PING
