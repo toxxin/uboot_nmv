@@ -28,6 +28,7 @@
 #include <linux/usb/musb.h>
 #include <i2c.h>
 #include <netdev.h>
+/*#include "nmv_clean.h"*/
 #include "nmv.h"
 
 DECLARE_GLOBAL_DATA_PTR;

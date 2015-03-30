@@ -21,7 +21,7 @@
   * Pinconfigs with only JTAG, I2C and USART.
   */
 
-#define MUX_NMV_CLEAN() \
+#define MUX_NMV() \
 MUX_VAL(CONTROL_PADCONF_CCDC_DATA0, (IEN | PD | M7 )) /* safe_mode */\
 MUX_VAL(CONTROL_PADCONF_CCDC_DATA1, (IEN | PU | M7 )) /* safe_mode */\
 MUX_VAL(CONTROL_PADCONF_CCDC_DATA2, (IEN | PD | M7 )) /* safe_mode */\
