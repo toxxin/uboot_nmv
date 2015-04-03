@@ -1,6 +1,7 @@
 r
 h
 exec device = AM3517
+speed 8000
 
 /*
  * Some real magic happend here. ROM bootloader has to set up R0 register
