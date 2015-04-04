@@ -149,12 +149,12 @@
 
 
 /* Environment information */
-#define CONFIG_BOOTDELAY	10
+#define CONFIG_BOOTDELAY	2
 
 #define CONFIG_BOOTFILE		"uImage"
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
-	"loadaddr=0x82000000\0" \
+	"loadaddr=0x80200000\0" \
 	"console=ttyO2,115200n8\0" \
 	"mmcdev=0\0" \
     "ip=192.168.0.100\0" \
@@ -204,6 +204,8 @@
         "i2c mw 0x2d 0x35 0x0c\0" \
 
 #define CONFIG_BOOTCOMMAND \
+	"run setenvi7; " \
+	"run tboot; " \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"if run loadbootscript; then " \
 			"run bootscript; " \
@@ -314,7 +316,7 @@
 /*#define CONFIG_SPL_MMC_SUPPORT
 #define CONFIG_SPL_FAT_SUPPORT*/
 #define CONFIG_SPL_SERIAL_SUPPORT
-#define CONFIG_SPL_POWER_SUPPORT
+/*#define CONFIG_SPL_POWER_SUPPORT*/
 #define CONFIG_SPL_LDSCRIPT		"$(CPUDIR)/omap-common/u-boot-spl.lds"
 
 /*
@@ -323,7 +325,7 @@
  * header. That is 0x800FFFC0--0x80100000 should not be used for any
  * other needs.
  */
-/*#define CONFIG_SYS_TEXT_BASE		0x80000000*/
+/* #define CONFIG_SYS_TEXT_BASE		0x80000000 */
 #define CONFIG_SYS_TEXT_BASE		0x80100000
 #define CONFIG_SYS_SPL_MALLOC_START	0x80208000
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x100000
