@@ -20,7 +20,7 @@ w4 0x4020fea8, 0x00082040
 
 regs
 loadbin ./spl/u-boot-spl.bin 0x40200800
-/* verifybin ./spl/u-boot-spl.bin 0x40200800 */
+verifybin ./spl/u-boot-spl.bin 0x40200800
 SetPC 0x40200800
 regs
 g
@@ -30,7 +30,7 @@ h
 mem32 0x4020fe9c, 4
 
 loadbin ./u-boot.bin 0x80100000
-/* verifybin ./u-boot.bin 0x80100000 */
+verifybin ./u-boot.bin 0x80100000
 SetPC 0x80100000
 regs
 g
