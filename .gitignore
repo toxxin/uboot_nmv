@@ -11,6 +11,7 @@ include/generated/
 *.srec
 
 MLO
+EMMC_MLO
 u-boot
 spl
 tpl
