@@ -173,6 +173,7 @@
 	"loaduimage=fatload mmc ${mmcdev} ${loadaddr} uImage\0" \
 	"mmcboot=echo Booting from mmc ...; " \
 		"run mmcargs; " \
+		"run loaduimage; " \
 		"bootm ${loadaddr}\0" \
 	"nandboot=echo Booting from nand ...; " \
 		"run nandargs; " \
