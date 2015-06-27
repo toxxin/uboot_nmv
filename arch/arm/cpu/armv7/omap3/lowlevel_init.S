@@ -19,10 +19,10 @@
 
 #ifdef CONFIG_SPL_BUILD
 ENTRY(save_boot_params)
-	ldr	r4, =omap3_boot_device
+/*	ldr	r4, =omap3_boot_device
 	ldr	r5, [r0, #0x4]
 	and	r5, r5, #0xff
-	str	r5, [r4]
+	str	r5, [r4]*/
 	bx	lr
 ENDPROC(save_boot_params)
 #endif
