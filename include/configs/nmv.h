@@ -205,8 +205,6 @@
         "i2c mw 0x2d 0x35 0x0c\0" \
 
 #define CONFIG_BOOTCOMMAND \
-	"run setenvi7; " \
-	"run tboot; " \
 	"mmc dev ${mmcdev}; if mmc rescan; then " \
 		"if run loadbootscript; then " \
 			"run bootscript; " \
